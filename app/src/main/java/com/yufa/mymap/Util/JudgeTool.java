@@ -5,7 +5,7 @@ package com.yufa.mymap.Util;
  */
 public class JudgeTool {
 
-    private boolean isPhoneNumber(String str){
+    public boolean isPhoneNumber(String str){
         return false;
     }
 

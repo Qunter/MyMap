@@ -8,12 +8,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.yufa.mymap.Entity.UserBase;
 import com.yufa.mymap.R;
 import com.yufa.mymap.Util.ShowTool;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.bmob.v3.BmobQuery;
 
 
 /**
@@ -75,6 +77,8 @@ public class LoginsActivity extends BaseActivity {
     }
 
     private void logining(){
+        BmobQuery<UserBase> query = new BmobQuery<UserBase>();
+        query.addWhereEqualTo("UserName","");
         toNewActivity(this,MainActivity.class,true,this);
     }
 
