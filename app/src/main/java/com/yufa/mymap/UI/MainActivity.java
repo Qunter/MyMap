@@ -108,4 +108,5 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
         transaction.replace(R.id.main_linearlayout, getFragment(position));
         transaction.commit();
     }
+
 }

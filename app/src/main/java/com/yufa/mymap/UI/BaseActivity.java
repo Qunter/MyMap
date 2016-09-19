@@ -1,10 +1,5 @@
 package com.yufa.mymap.UI;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.ActivityOptions;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -39,13 +34,5 @@ public class BaseActivity extends AppCompatActivity{
 
     public void loadData(){
         //访问API数据
-    }
-
-    @SuppressLint("NewApi")
-    protected void toNewActivity(Context context, Class aclass, Boolean isFinish, Activity activity){
-        Intent intent = new Intent();
-        intent.setClass(context, aclass);
-        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(activity).toBundle());
-        if (isFinish) finish();
     }
 }
