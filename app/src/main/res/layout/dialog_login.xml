@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
     android:orientation="vertical">
-
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textInputLayout1">
+        app:errorEnabled="true"
+        app:hintEnabled="true"
+        android:id="@+id/login_phoneNumber">
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -16,10 +18,13 @@
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textInputLayout2">
+        app:errorEnabled="true"
+        app:hintEnabled="true"
+        android:id="@+id/login_password">
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:password="true"/>
     </android.support.design.widget.TextInputLayout>
 
 </LinearLayout>

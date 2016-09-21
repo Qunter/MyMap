@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.ActionBar;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -33,7 +34,6 @@ import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
-import cn.bmob.v3.listener.SaveListener;
 
 
 /**
@@ -79,10 +79,10 @@ public class LoginsActivity extends BaseActivity {
         ShowTool showTool = new ShowTool();
         switch (view.getId()) {
             case R.id.login_logining:
-                loginDialog(this,"请输入您的用户名和密码：");
+                loginDialog(this);
                 break;
             case R.id.login_register:
-
+//                register(this);
                 break;
             case R.id.login_qq:
                 showTool.showToast(this, "qq");
@@ -96,17 +96,15 @@ public class LoginsActivity extends BaseActivity {
         }
     }
 
-    private void loginDialog(Context context, String str) {
+    private void loginDialog(Context context) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        View layout = LayoutInflater.from(context).inflate(R.layout.item_dialog, null);
+        View layout = LayoutInflater.from(context).inflate(R.layout.dialog_login, null);
         builder.setView(layout);
-        builder.setMessage(str);
-        final TextInputLayout textInputLayout1 = (TextInputLayout) layout.findViewById(R.id.textInputLayout1);
-        final TextInputLayout textInputLayout2 = (TextInputLayout) layout.findViewById(R.id.textInputLayout2);
+        builder.setMessage("请输入您的用户名和密码：");
+        final TextInputLayout textInputLayout1 = (TextInputLayout) layout.findViewById(R.id.login_phoneNumber);
+        final TextInputLayout textInputLayout2 = (TextInputLayout) layout.findViewById(R.id.login_password);
         textInputLayout1.setHint("请输入您的用户名");
         textInputLayout2.setHint("请输入您的密码");
-        textInputLayout1.setHintEnabled(true);
-        textInputLayout2.setErrorEnabled(true);
         builder.setView(layout);
         textInputLayout1.getEditText().addTextChangedListener(new TextWatcher() {
 
@@ -131,6 +129,7 @@ public class LoginsActivity extends BaseActivity {
             }
         });
 
+        textInputLayout2.getEditText().setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -156,7 +155,7 @@ public class LoginsActivity extends BaseActivity {
             @Override
             public void done(List<UserBase> list, BmobException e) {
                 if (e!=null){
-                    Log.d("LALALALA",e.getErrorCode()+"");
+                    Log.d("ERROR",e.getErrorCode()+"");
                 }else{
                     if(password.equals(list.get(0).getPassword())) toNewActivity();
                 }
@@ -164,15 +163,6 @@ public class LoginsActivity extends BaseActivity {
         });
     }
 
-    private void save(String phoneNumber, String password) {
-        UserBase userBase = new UserBase(phoneNumber, password);
-        userBase.save(new SaveListener<String>() {
-            @Override
-            public void done(String s, BmobException e) {
-                toNewActivity();   //注册与修改密码
-            }
-        });
-    }
     @SuppressLint("NewApi")
     protected void toNewActivity(){
         Intent intent = new Intent();
