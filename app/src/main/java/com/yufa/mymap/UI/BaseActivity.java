@@ -1,5 +1,8 @@
 package com.yufa.mymap.UI;
 
+import android.annotation.SuppressLint;
+import android.app.ActivityOptions;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,14 +17,18 @@ public class BaseActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        transition();
+        initVariables();
+        initViews();
+        loadData();
+    }
+
+    private void transition(){
         getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setEnterTransition(new Explode());
             getWindow().setExitTransition(new Explode());
         }
-        initVariables();
-        initViews();
-        loadData();
     }
 
     public void initVariables(){
@@ -34,5 +41,11 @@ public class BaseActivity extends AppCompatActivity{
 
     public void loadData(){
         //访问API数据
+    }
+    @SuppressLint("NewApi")
+    protected void toNewActivity(Class classes){
+        Intent intent = new Intent();
+        intent.setClass(getApplicationContext(), classes);
+        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
     }
 }

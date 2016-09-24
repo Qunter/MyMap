@@ -51,6 +51,10 @@
             android:theme="@style/AppTheme"/>
         <activity android:name=".UI.MainActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".UI.RegisterActivity"
+            android:theme="@style/AppTheme"
+            android:label="@string/register"
+            android:parentActivityName=".UI.LoginsActivity"/>
         <service android:name="com.amap.api.location.APSService"/>
 
     </application>

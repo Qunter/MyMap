@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
     <android.support.design.widget.TextInputLayout
@@ -34,12 +35,16 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:text="获取验证码"
+            android:textColor="@color/colorWhite"
+            android:background="@drawable/button_background"
             android:id="@+id/register_getVerificationCode"/>
     </LinearLayout>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="验证"
+        android:textColor="@color/colorWhite"
+        android:background="@drawable/button_background"
         android:id="@+id/register_verification"/>
 
 </LinearLayout>

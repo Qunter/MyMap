@@ -1,14 +1,10 @@
 package com.yufa.mymap.UI;
 
-import android.annotation.SuppressLint;
-import android.app.ActivityOptions;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
-import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.ActionBar;
 import android.text.Editable;
@@ -54,10 +50,15 @@ public class LoginsActivity extends BaseActivity {
     ImageButton loginSinaweibo;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+    public void initVariables() {
+        super.initVariables();
         hideActionBar();
+    }
+
+    @Override
+    public void initViews() {
+        super.initViews();
+        setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         Bmob.initialize(LoginsActivity.this, "ff5f5d16336bb6a0e6d0a05e839f8b20");
     }
@@ -82,7 +83,7 @@ public class LoginsActivity extends BaseActivity {
                 loginDialog(this);
                 break;
             case R.id.login_register:
-//                register(this);
+                toNewActivity(RegisterActivity.class);
                 break;
             case R.id.login_qq:
                 showTool.showToast(this, "qq");
@@ -154,19 +155,14 @@ public class LoginsActivity extends BaseActivity {
         query.findObjects(new FindListener<UserBase>() {
             @Override
             public void done(List<UserBase> list, BmobException e) {
-                if (e!=null){
-                    Log.d("ERROR",e.getErrorCode()+"");
-                }else{
-                    if(password.equals(list.get(0).getPassword())) toNewActivity();
+                if (e != null) {
+                    Log.d("ERROR", e.getErrorCode() + "");
+                } else {
+                    if (password.equals(list.get(0).getPassword()))
+                        toNewActivity(MainActivity.class);
                 }
             }
         });
     }
 
-    @SuppressLint("NewApi")
-    protected void toNewActivity(){
-        Intent intent = new Intent();
-        intent.setClass(this, MainActivity.class);
-        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
-    }
 }

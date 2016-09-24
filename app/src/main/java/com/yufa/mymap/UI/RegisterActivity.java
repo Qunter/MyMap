@@ -2,7 +2,6 @@ package com.yufa.mymap.UI;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -18,6 +17,7 @@ import com.yufa.mymap.Util.JudgeTool;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.bmob.v3.Bmob;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 
@@ -37,21 +37,13 @@ public class RegisterActivity extends BaseActivity {
     @BindView(R.id.register_verification)
     Button registerVerification;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
-        ButterKnife.bind(this);
-    }
-
-    @Override
-    public void initVariables() {
-        super.initVariables();
-    }
 
     @Override
     public void initViews() {
         super.initViews();
+        setContentView(R.layout.activity_register);
+        ButterKnife.bind(this);
+        Bmob.initialize(RegisterActivity.this, "ff5f5d16336bb6a0e6d0a05e839f8b20");
         registerPhoneNumber.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -75,29 +67,25 @@ public class RegisterActivity extends BaseActivity {
         });
     }
 
-    @Override
-    public void loadData() {
-        super.loadData();
-    }
-
     @OnClick({R.id.register_getVerificationCode, R.id.register_verification})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.register_getVerificationCode:
+
+                break;
+            case R.id.register_verification:
                 String phoneNumber = registerPhoneNumber.getEditText().getText().toString();
                 String password = registerPassword.getEditText().getText().toString();
                 //测试验证码是否正确
-                if (isTrue(phoneNumber,password)){
+                if (isTrue(phoneNumber,password)) {
                     register(phoneNumber);
                 }
-                break;
-            case R.id.register_verification:
                 break;
         }
     }
 
     private void register(final String phoneNumber) {
-        View view = LayoutInflater.from(this).inflate(R.layout.dialog_register, null);
+        View view = LayoutInflater.from(RegisterActivity.this).inflate(R.layout.dialog_register, null);
         final TextInputLayout atFirst = (TextInputLayout)view.findViewById(R.id.register_atFirst);
         final TextInputLayout theSecond = (TextInputLayout)view.findViewById(R.id.register_theSecond);
         theSecond.getEditText().addTextChangedListener(new TextWatcher() {
@@ -114,9 +102,9 @@ public class RegisterActivity extends BaseActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 String atFirsts = atFirst.getEditText().getText().toString();
-                if(atFirsts.equals(s.toString())){
+                if (atFirsts.equals(s.toString())) {
                     theSecond.setErrorEnabled(false);
-                }else{
+                } else {
                     theSecond.setError("您两次输入的密码不一致，请检查");
                     if (!theSecond.isErrorEnabled()) theSecond.setErrorEnabled(true);
                 }
@@ -130,7 +118,8 @@ public class RegisterActivity extends BaseActivity {
             public void onClick(DialogInterface dialog, int which) {
                 if(!theSecond.isErrorEnabled()){
                     //两次输入的密码相同，提交到服务器
-                    save(phoneNumber,theSecond.getEditText().getText().toString());
+                    toNewActivity(MainActivity.class);
+//                    save(phoneNumber,theSecond.getEditText().getText().toString());
                 }
             }
         });
@@ -140,6 +129,7 @@ public class RegisterActivity extends BaseActivity {
 
             }
         });
+        builder.create().show();
     }
 
     private void save(String phoneNumber, String password) {
@@ -148,10 +138,11 @@ public class RegisterActivity extends BaseActivity {
             @Override
             public void done(String s, BmobException e) {
                 if (e != null) {
-                    //错误,
+                    //错误,注册失败
                     Log.d("ERROR", e.getErrorCode() + ":" + e.getMessage());
                 } else {
-                    //验证成功，到输入密码Dialog
+                    //注册成功，到主页面
+                    toNewActivity(MainActivity.class);
                 }
             }
         });
