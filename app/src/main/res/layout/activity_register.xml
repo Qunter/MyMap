@@ -13,7 +13,8 @@
         android:id="@+id/register_phoneNumber">
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:hint="请输入您的手机号码"/>
     </android.support.design.widget.TextInputLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,10 +26,11 @@
             android:layout_weight="9"
             app:errorEnabled="true"
             app:hintEnabled="true"
-            android:id="@+id/register_password">
+            android:id="@+id/register_verificationCode">
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:hint="请输入您的验证码"/>
         </android.support.design.widget.TextInputLayout>
         <Button
             android:layout_width="wrap_content"

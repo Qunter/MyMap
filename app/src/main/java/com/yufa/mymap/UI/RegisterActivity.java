@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.yufa.mymap.Entity.UserBase;
 import com.yufa.mymap.R;
@@ -20,6 +21,8 @@ import butterknife.OnClick;
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
+import cn.smssdk.EventHandler;
+import cn.smssdk.SMSSDK;
 
 /**
  * Created by luyufa on 2016/9/21.
@@ -30,12 +33,40 @@ public class RegisterActivity extends BaseActivity {
 
     @BindView(R.id.register_phoneNumber)
     TextInputLayout registerPhoneNumber;
-    @BindView(R.id.register_password)
-    TextInputLayout registerPassword;
+    @BindView(R.id.register_verificationCode)
+    TextInputLayout verificationCode;
     @BindView(R.id.register_getVerificationCode)
     Button registerGetVerificationCode;
     @BindView(R.id.register_verification)
     Button registerVerification;
+
+    private String phoneNumber;
+    private String code;
+
+    EventHandler eh=new EventHandler(){
+
+        @Override
+        public void afterEvent(int event, int result, Object data) {
+
+            if (result == SMSSDK.RESULT_COMPLETE) {
+                //回调完成
+                if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
+                    //提交验证码成功
+                }else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE){
+                    //获取验证码成功
+                }else if (event ==SMSSDK.EVENT_GET_SUPPORTED_COUNTRIES){
+                    //返回支持发送验证码的国家列表
+                }else if(event == 3){
+                    //事件执行成功
+                    phoneNumber = registerPhoneNumber.getEditText().getText().toString().trim();
+                    register(phoneNumber);
+                }
+            }else{
+                ((Throwable)data).printStackTrace();
+            }
+        }
+    };
+
 
 
     @Override
@@ -44,6 +75,7 @@ public class RegisterActivity extends BaseActivity {
         setContentView(R.layout.activity_register);
         ButterKnife.bind(this);
         Bmob.initialize(RegisterActivity.this, "ff5f5d16336bb6a0e6d0a05e839f8b20");
+        SMSSDK.initSDK(this, "176c98fbb9730", "ef54fb26acc313048f2bbb221a6aa593");
         registerPhoneNumber.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -65,21 +97,23 @@ public class RegisterActivity extends BaseActivity {
                 }
             }
         });
+        SMSSDK.registerEventHandler(eh); //注册短信回调
     }
 
     @OnClick({R.id.register_getVerificationCode, R.id.register_verification})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.register_getVerificationCode:
-
+                //获得验证码
+                phoneNumber = registerPhoneNumber.getEditText().getText().toString().trim();
+                SMSSDK.getVerificationCode("86", registerPhoneNumber.getEditText().getText().toString());
                 break;
             case R.id.register_verification:
-                String phoneNumber = registerPhoneNumber.getEditText().getText().toString();
-                String password = registerPassword.getEditText().getText().toString();
                 //测试验证码是否正确
-                if (isTrue(phoneNumber,password)) {
-                    register(phoneNumber);
-                }
+                phoneNumber = registerPhoneNumber.getEditText().getText().toString().trim();
+                code = verificationCode.getEditText().getText().toString().trim();
+                Toast.makeText(this,phoneNumber + ":" + code,Toast.LENGTH_SHORT).show();
+                SMSSDK.submitVerificationCode("86", phoneNumber, code);
                 break;
         }
     }
@@ -119,7 +153,7 @@ public class RegisterActivity extends BaseActivity {
                 if(!theSecond.isErrorEnabled()){
                     //两次输入的密码相同，提交到服务器
                     toNewActivity(MainActivity.class);
-//                    save(phoneNumber,theSecond.getEditText().getText().toString());
+                    save(phoneNumber, theSecond.getEditText().getText().toString());
                 }
             }
         });
@@ -147,10 +181,10 @@ public class RegisterActivity extends BaseActivity {
             }
         });
     }
-    private Boolean isTrue(String phoneNumber,String password){
-        if (phoneNumber.equals("123456")&&password.equals("123456")){
-            return true;
-        }
-        return false;
-    };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SMSSDK.unregisterEventHandler(eh);
+    }
 }
