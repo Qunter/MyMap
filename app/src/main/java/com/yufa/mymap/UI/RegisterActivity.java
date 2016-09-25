@@ -2,6 +2,8 @@ package com.yufa.mymap.UI;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.os.Handler;
+import android.os.Message;
 import android.support.design.widget.TextInputLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -52,14 +54,11 @@ public class RegisterActivity extends BaseActivity {
                 //回调完成
                 if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
                     //提交验证码成功
+                    handler.sendEmptyMessage(0x101);
                 }else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE){
                     //获取验证码成功
                 }else if (event ==SMSSDK.EVENT_GET_SUPPORTED_COUNTRIES){
                     //返回支持发送验证码的国家列表
-                }else if(event == 3){
-                    //事件执行成功
-                    phoneNumber = registerPhoneNumber.getEditText().getText().toString().trim();
-                    register(phoneNumber);
                 }
             }else{
                 ((Throwable)data).printStackTrace();
@@ -67,6 +66,19 @@ public class RegisterActivity extends BaseActivity {
         }
     };
 
+    Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 0x101:{
+                    phoneNumber = registerPhoneNumber.getEditText().getText().toString().trim();
+                    register(phoneNumber);
+                    break;
+                }
+            }
+        }
+    };
 
 
     @Override
@@ -152,7 +164,6 @@ public class RegisterActivity extends BaseActivity {
             public void onClick(DialogInterface dialog, int which) {
                 if(!theSecond.isErrorEnabled()){
                     //两次输入的密码相同，提交到服务器
-                    toNewActivity(MainActivity.class);
                     save(phoneNumber, theSecond.getEditText().getText().toString());
                 }
             }
@@ -186,5 +197,6 @@ public class RegisterActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         SMSSDK.unregisterEventHandler(eh);
+        handler.removeCallbacks(null);
     }
 }
