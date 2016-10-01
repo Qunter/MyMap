@@ -27,6 +27,16 @@
             android:layout_marginTop="20dp"
             android:text="@string/register"
             android:id="@+id/login_register"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:textColor="@color/colorWhite"
+            android:background="@drawable/button_background"
+            android:layout_marginTop="20dp"
+            android:text="游客登录"
+            android:id="@+id/login_look"/>
+
     </LinearLayout>
     <TextView
         android:layout_width="match_parent"

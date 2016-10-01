@@ -88,6 +88,7 @@ public class FriendsFragment extends Fragment implements SwipeRefreshLayout.OnRe
     }
 
     private View initViews(View view) {
+        friendSearch.setFocusable(false);
         swipeRefresh.setOnRefreshListener(this);
         recyclerView.setAdapter(new Adapter<Friend>(this.getActivity(), data, R.layout.item_recyclerview) {
             @Override

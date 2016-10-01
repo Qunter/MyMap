@@ -62,6 +62,7 @@ public class GroupFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_group, null);
         ButterKnife.bind(this, view);
+        groupSearch.setFocusable(false);
         recyclerView.setAdapter(new Adapter<Group>(this.getActivity(), data, R.layout.item_recyclerview) {
             @Override
             public void convert(ViewHolder holder, Group group) {

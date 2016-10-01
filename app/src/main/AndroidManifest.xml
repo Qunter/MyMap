@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.yufa.mymap">
 
     <!-- 高德地图 -->
@@ -61,7 +62,8 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme.NoActionBar">
+        android:theme="@style/AppTheme.NoActionBar"
+        tools:ignore="AllowBackup">
         <meta-data android:name="com.amap.api.v2.apikey" android:value="681de35e7c3ccc3df68da3aa058cdb24"/>
         <activity
             android:name="com.mob.tools.MobUIShell"
@@ -91,6 +93,7 @@
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity android:name=".UI.LoadingActivity"
+            tools:ignore="InnerclassSeparator"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -98,13 +101,41 @@
             </intent-filter>
         </activity>
         <activity android:name=".UI.LoginsActivity"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme"
+            tools:ignore="InnerclassSeparator" />
         <activity android:name=".UI.MainActivity"
+            tools:ignore="InnerclassSeparator"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".UI.RegisterActivity"
+            tools:ignore="InnerclassSeparator,UnusedAttribute"
             android:theme="@style/AppTheme"
             android:label="@string/register"
             android:parentActivityName=".UI.LoginsActivity"/>
+        <activity android:name=".UI.SendActivity"
+            tools:ignore="InnerclassSeparator,UnusedAttribute"
+            android:theme="@style/AppTheme"
+            android:label="@string/sendToUs"
+            android:parentActivityName=".UI.MainActivity"/>
+        <activity android:name=".UI.SettingActivity"
+            tools:ignore="InnerclassSeparator,UnusedAttribute"
+            android:theme="@style/AppTheme"
+            android:label="@string/setting"
+            android:parentActivityName=".UI.MainActivity"/>
+        <activity android:name=".UI.UserInfoActivity"
+            tools:ignore="InnerclassSeparator,UnusedAttribute"
+            android:theme="@style/AppTheme"
+            android:label="@string/userInfo"
+            android:parentActivityName=".UI.MainActivity"/>
+        <activity android:name=".UI.ShareActvity"
+            tools:ignore="InnerclassSeparator,UnusedAttribute"
+            android:theme="@style/AppTheme"
+            android:label="@string/share"
+            android:parentActivityName=".UI.MainActivity"/>
+        <activity android:name=".UI.CommunityActivity"
+            tools:ignore="InnerclassSeparator,UnusedAttribute"
+            android:theme="@style/AppTheme"
+            android:label="@string/aboutUs"
+            android:parentActivityName=".UI.MainActivity"/>
         <service android:name="com.amap.api.location.APSService"/>
 
     </application>

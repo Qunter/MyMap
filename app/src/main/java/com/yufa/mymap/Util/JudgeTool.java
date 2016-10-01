@@ -19,5 +19,16 @@ public class JudgeTool {
         }
         return false;
     }
+    public Boolean isEmail(String email){
+        String regx = "\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*";
+        Pattern pattern = Pattern.compile(regx);
+        Matcher matcher = pattern.matcher(email);
+        while(matcher.find()){
+            if(matcher.group().equals(email)){
+                return true;
+            }
+        }
+        return false;
+    }
 
 }

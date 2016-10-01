@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.ActionBar;
 import android.text.Editable;
@@ -48,6 +49,8 @@ public class LoginsActivity extends BaseActivity {
     ImageButton loginWeichat;
     @BindView(R.id.login_sinaweibo)
     ImageButton loginSinaweibo;
+    @BindView(R.id.login_look)
+    Button loginLook;
 
     @Override
     public void initVariables() {
@@ -75,7 +78,7 @@ public class LoginsActivity extends BaseActivity {
         actionBar.hide();
     }
 
-    @OnClick({R.id.login_logining, R.id.login_register, R.id.login_qq, R.id.login_weichat, R.id.login_sinaweibo})
+    @OnClick({R.id.login_logining, R.id.login_register,R.id.login_look, R.id.login_qq, R.id.login_weichat, R.id.login_sinaweibo})
     public void onClick(View view) {
         ShowTool showTool = new ShowTool();
         switch (view.getId()) {
@@ -84,6 +87,9 @@ public class LoginsActivity extends BaseActivity {
                 break;
             case R.id.login_register:
                 toNewActivity(RegisterActivity.class);
+                break;
+            case R.id.login_look:
+                toNewActivity(MainActivity.class);
                 break;
             case R.id.login_qq:
                 showTool.showToast(this, "qq");
@@ -165,4 +171,10 @@ public class LoginsActivity extends BaseActivity {
         });
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }

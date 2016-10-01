@@ -6,7 +6,8 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.transition.Explode;
+import android.transition.Slide;
+import android.view.Gravity;
 import android.view.Window;
 
 /**
@@ -26,8 +27,8 @@ public class BaseActivity extends AppCompatActivity{
     private void transition(){
         getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setEnterTransition(new Explode());
-            getWindow().setExitTransition(new Explode());
+            getWindow().setEnterTransition(new Slide(Gravity.LEFT));
+            getWindow().setExitTransition(new Slide(Gravity.RIGHT));
         }
     }
 
