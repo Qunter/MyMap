@@ -101,8 +101,8 @@ public class UserInfoActivity extends BaseActivity {
         intent.putExtra("crop", "true");
         intent.putExtra("aspectX", 1);
         intent.putExtra("aspectY", 1);
-        intent.putExtra("outputX", 300);
-        intent.putExtra("outputY", 300);
+        intent.putExtra("outputX", 150);
+        intent.putExtra("outputY", 150);
         intent.putExtra("return-data", true);
         startActivityForResult(intent, REQUESTCODE_CUTTING);
     }
