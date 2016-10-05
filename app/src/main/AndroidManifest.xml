@@ -136,6 +136,11 @@
             android:theme="@style/AppTheme"
             android:label="@string/aboutUs"
             android:parentActivityName=".UI.MainActivity"/>
+        <activity android:name=".UI.ThemeActivity"
+            android:theme="@style/AppTheme"
+            android:label="@string/theme"
+            android:parentActivityName=".UI.MainActivity"
+            tools:ignore="InnerclassSeparator,UnusedAttribute" />
         <service android:name="com.amap.api.location.APSService"/>
 
     </application>

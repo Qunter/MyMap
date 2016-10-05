@@ -18,6 +18,7 @@ import android.net.Uri;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.yufa.mymap.R;
@@ -27,7 +28,7 @@ import com.yufa.mymap.R;
  * Created by luyufa on 2016/7/22.
  * 圆形头像
  */
-public class CircleView extends ImageView{
+public class CircleView extends ImageView {
     private static final ScaleType SCALE_TYPE = ScaleType.CENTER_CROP;
     private static final Bitmap.Config BITMAP_CONFIG = Bitmap.Config.ARGB_8888;
     private static final int COLORDRAWABLE_DIMENSION = 2;

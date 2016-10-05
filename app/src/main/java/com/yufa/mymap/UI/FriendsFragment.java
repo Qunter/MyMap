@@ -109,11 +109,6 @@ public class FriendsFragment extends Fragment implements SwipeRefreshLayout.OnRe
         }).show();
     }
 
-    @Override
-    public void onRefresh() {
-        handler.sendEmptyMessage(0x101);
-    }
-
     private void setViewHolder(ViewHolder holder, Friend friend) {
         CircleView circleView = (CircleView) holder.getView(R.id.image);
         circleView.setImageResource(friend.getImage());
@@ -127,6 +122,11 @@ public class FriendsFragment extends Fragment implements SwipeRefreshLayout.OnRe
                 showSnackbar(v);
             }
         });
+    }
+
+    @Override
+    public void onRefresh() {
+        handler.sendEmptyMessage(0x101);
     }
 
     @Override
