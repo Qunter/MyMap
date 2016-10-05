@@ -5,9 +5,9 @@
 在这里你可以和好友确定一个目标地点，各自可以看到与目标位置的距离，你可以用它来聚会约会等等！
 
 这里用到的技术有：
-1.高德地图
-2.ShareSDK分享
-3.短信验证
-4.ButterKnife
-5.BottomNavigationBar
-6.Bmob
+1.  高德地图
+2.  ShareSDK分享
+3.  短信验证
+4.  ButterKnife
+5.  BottomNavigationBar
+6.  Bmob
