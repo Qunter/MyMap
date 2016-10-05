@@ -1,5 +1,7 @@
 package com.yufa.mymap.UI;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -8,12 +10,16 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.design.widget.TextInputLayout;
 import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.yufa.mymap.CustomView.CircleView;
 import com.yufa.mymap.R;
-import com.yufa.mymap.Util.FileUtil;
+import com.yufa.mymap.Util.FileTool;
 
 import java.io.File;
 
@@ -113,10 +119,63 @@ public class UserInfoActivity extends BaseActivity {
         if (extras != null) {
             Bitmap photo = extras.getParcelable("data");
             Drawable drawable = new BitmapDrawable(null, photo);
-            urlpath = FileUtil.saveFile(this, "temphead.jpg", photo);
+            urlpath = FileTool.saveFile(this, "temphead.jpg", photo);
             userImage.setImageDrawable(drawable);
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
 
+        getMenuInflater().inflate(R.menu.edit, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        if (id == R.id.Menu_edit){
+            showEditDialog();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void showEditDialog() {
+        AlertDialog.Builder builer = new AlertDialog.Builder(this);
+        builer.setMessage("请输入您的要修改的信息：");
+        LayoutInflater layoutInflater = LayoutInflater.from(this);
+        View view = layoutInflater.inflate(R.layout.dialog_edituserinfo,null);
+        final TextInputLayout userName = (TextInputLayout) view.findViewById(R.id.edituserinfo_username);
+        final TextInputLayout personality = (TextInputLayout)view.findViewById(R.id.edituserinfo_personality);
+        final TextInputLayout address = (TextInputLayout)view.findViewById(R.id.edituserinfo_address);
+        builer.setView(view);
+        builer.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builer.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String name = userName.getEditText().getText().toString();
+                String personal = personality.getEditText().getText().toString();
+                String addres = address.getEditText().getText().toString();
+                if(name.equals("")){
+                    
+                }
+                if (personal.equals("")){
+
+                }
+                if (addres.equals("")){
+
+                }
+            }
+        });
+        builer.create().show();
+
+    }
 }

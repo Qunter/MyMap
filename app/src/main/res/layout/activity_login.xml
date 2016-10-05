@@ -54,19 +54,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:background="@drawable/qq"
+            android:background="@drawable/ssdk_oks_classic_qq"
             android:id="@+id/login_qq"/>
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:background="@drawable/wechat"
+            android:background="@drawable/ssdk_oks_classic_wechat"
             android:id="@+id/login_weichat"/>
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:background="@drawable/sinaweibo"
+            android:background="@drawable/ssdk_oks_classic_sinaweibo"
             android:id="@+id/login_sinaweibo"/>
     </LinearLayout>
 

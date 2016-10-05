@@ -13,7 +13,7 @@ import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.os.Environment;
 
-public class FileUtil {
+public class FileTool {
     /**
      * 将Bitmap 图片保存到本地路径，并返回路径
      * @param c 上下文
