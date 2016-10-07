@@ -36,6 +36,7 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:background="@drawable/button_background"
+            android:id="@+id/userinfo_username"
             android:textColor="@color/colorWhite"
             android:text="账号：18079733121"/>
 
@@ -47,6 +48,7 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:background="@drawable/button_background"
+            android:id="@+id/userinfo_shortcall"
             android:textColor="@color/colorWhite"
             android:text="昵称：错觉" />
 
@@ -58,6 +60,7 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:background="@drawable/button_background"
+            android:id="@+id/userinfo_personality"
             android:textColor="@color/colorWhite"
             android:text="个性签名：朋友多，就是好！"/>
         <TextView
@@ -68,6 +71,7 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:background="@drawable/button_background"
+            android:id="@+id/userinfo_address"
             android:textColor="@color/colorWhite"
             android:text="我的地址：江西省南昌市青山湖区紫阳大道115号"/>
         <TextView

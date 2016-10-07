@@ -1,8 +1,8 @@
 package com.yufa.mymap.UI;
 
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
 
 import com.yufa.mymap.R;
 
@@ -26,6 +26,8 @@ public class SettingActivity extends BaseActivity {
     Button settingUpdate;
     @BindView(R.id.setting_outlogin)
     Button settingOutlogin;
+    @BindView(R.id.setting_clean)
+    Button settingClean;
 
     @Override
     public void initViews() {
@@ -34,21 +36,58 @@ public class SettingActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.setting_notification, R.id.setting_privacy, R.id.setting_retrieve, R.id.setting_security, R.id.setting_update, R.id.setting_outlogin})
+    @OnClick({R.id.setting_notification, R.id.setting_privacy, R.id.setting_retrieve, R.id.setting_security,R.id.setting_clean, R.id.setting_update, R.id.setting_outlogin})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.setting_notification:
+                notification();
                 break;
             case R.id.setting_privacy:
+                privacy();
                 break;
             case R.id.setting_retrieve:
+                retrieve();
                 break;
             case R.id.setting_security:
+                security();
+                break;
+            case R.id.setting_clean:
+                clean();
                 break;
             case R.id.setting_update:
+                update();
                 break;
             case R.id.setting_outlogin:
+                outLogin();
                 break;
         }
     }
+
+    private void notification() {
+
+    }
+    private void privacy(){
+
+    }
+
+    private void retrieve() {
+
+    }
+
+    private void security() {
+
+    }
+
+    private void update() {
+
+    }
+
+    private void outLogin() {
+
+    }
+
+    private void clean() {
+
+    }
+
 }

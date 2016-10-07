@@ -16,8 +16,10 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.yufa.mymap.CustomView.CircleView;
+import com.yufa.mymap.Entity.EditUser;
 import com.yufa.mymap.R;
 import com.yufa.mymap.Util.FileTool;
 
@@ -26,6 +28,7 @@ import java.io.File;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.bmob.v3.BmobQuery;
 
 /**
  * Created by luyufa on 2016/9/29.
@@ -34,13 +37,22 @@ public class UserInfoActivity extends BaseActivity {
 
 
     @BindView(R.id.userImage)
-    CircleView userImage;;
+    CircleView userImage;
+    ;
+    @BindView(R.id.userinfo_username)
+    TextView userinfoUsername;
+    @BindView(R.id.userinfo_shortcall)
+    TextView userinfoShortcall;
+    @BindView(R.id.userinfo_personality)
+    TextView userinfoPersonality;
+    @BindView(R.id.userinfo_address)
+    TextView userinfoAddress;
     private SelectPicPopupWindow menuWindow;
     private static final int REQUESTCODE_PICK = 0;
     private static final int REQUESTCODE_TAKE = 1;
     private static final int REQUESTCODE_CUTTING = 2;
     private static final String IMAGE_FILE_NAME = "avatarImage.jpg";
-    private String urlpath="";
+    private String urlpath = "";
 
     @Override
     public void initViews() {
@@ -53,7 +65,7 @@ public class UserInfoActivity extends BaseActivity {
     public void onClick() {
         menuWindow = new SelectPicPopupWindow(this, itemsOnClick);
         menuWindow.showAtLocation(findViewById(R.id.userImage),
-                Gravity.BOTTOM| Gravity.CENTER_HORIZONTAL, 0, 0);
+                Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
     }
 
     private View.OnClickListener itemsOnClick = new View.OnClickListener() {
@@ -136,7 +148,7 @@ public class UserInfoActivity extends BaseActivity {
 
         int id = item.getItemId();
 
-        if (id == R.id.Menu_edit){
+        if (id == R.id.Menu_edit) {
             showEditDialog();
         }
 
@@ -147,10 +159,13 @@ public class UserInfoActivity extends BaseActivity {
         AlertDialog.Builder builer = new AlertDialog.Builder(this);
         builer.setMessage("请输入您的要修改的信息：");
         LayoutInflater layoutInflater = LayoutInflater.from(this);
-        View view = layoutInflater.inflate(R.layout.dialog_edituserinfo,null);
+        View view = layoutInflater.inflate(R.layout.dialog_edituserinfo, null);
         final TextInputLayout userName = (TextInputLayout) view.findViewById(R.id.edituserinfo_username);
-        final TextInputLayout personality = (TextInputLayout)view.findViewById(R.id.edituserinfo_personality);
-        final TextInputLayout address = (TextInputLayout)view.findViewById(R.id.edituserinfo_address);
+        final TextInputLayout personality = (TextInputLayout) view.findViewById(R.id.edituserinfo_personality);
+        final TextInputLayout address = (TextInputLayout) view.findViewById(R.id.edituserinfo_address);
+        userName.getEditText().setText(userinfoShortcall.getText().toString().substring(3));
+        personality.getEditText().setText(userinfoPersonality.getText().toString().substring(5));
+        address.getEditText().setText(userinfoAddress.getText().toString().substring(5));
         builer.setView(view);
         builer.setNegativeButton("取消", new DialogInterface.OnClickListener() {
             @Override
@@ -164,18 +179,38 @@ public class UserInfoActivity extends BaseActivity {
                 String name = userName.getEditText().getText().toString();
                 String personal = personality.getEditText().getText().toString();
                 String addres = address.getEditText().getText().toString();
-                if(name.equals("")){
-                    
-                }
-                if (personal.equals("")){
-
-                }
-                if (addres.equals("")){
-
-                }
+                beforeSave(name,personal,addres);
+                
             }
         });
         builer.create().show();
 
+    }
+
+    private void beforeSave(String username,String personality,String address){
+
+        if (username.equals("")){
+            username = userinfoShortcall.getText().toString();
+        }else{
+            username = "昵称：" + username;
+        }
+        if (personality.equals("")){
+            personality = userinfoPersonality.getText().toString();
+        }else{
+            personality = "个性签名：" + personality;
+        }
+        if (address.equals("")){
+            address = userinfoAddress.getText().toString();
+        }else{
+            address = "我的地址：" + address;
+        }
+        userinfoShortcall.setText(username);
+        userinfoPersonality.setText(personality);
+        userinfoAddress.setText(address);
+        EditUser editUser = new EditUser(username,personality,address);
+        doSave(editUser);
+    }
+    private void doSave(EditUser editUser){
+        
     }
 }
