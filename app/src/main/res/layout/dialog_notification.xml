@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="请选择显示方式" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:id="@+id/notification_showType"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/notification_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="普通" />
+
+        <RadioButton
+            android:id="@+id/notification_headsup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="悬挂式" />
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="请选择显示范围" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        android:id="@+id/notification_showClass"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/notification_public"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="任何时候都显示" />
+
+        <RadioButton
+            android:id="@+id/notification_private"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="没有锁屏的时候" />
+
+        <RadioButton
+            android:id="@+id/notification_secret"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="没有密码锁屏的时候" />
+    </RadioGroup>
+
+</LinearLayout>
