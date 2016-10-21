@@ -2,15 +2,15 @@ package com.yufa.mymap.UI;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-
 import com.yufa.mymap.R;
+import com.yufa.mymap.Util.DataCleanManager;
+import com.yufa.mymap.Util.SPManger;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,36 +38,41 @@ public class SettingActivity extends BaseActivity {
     String notificationClasses;
     String privacyType;
 
+    private String filename;
+    private SPManger spManger;
+
     @Override
     public void initViews() {
         super.initViews();
         setContentView(R.layout.activity_setting);
         ButterKnife.bind(this);
+        filename = "setting";
+        spManger = new SPManger(this,filename);
     }
 
     @OnClick({R.id.setting_notification, R.id.setting_privacy, R.id.setting_retrieve, R.id.setting_security, R.id.setting_clean, R.id.setting_update, R.id.setting_outlogin})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.setting_notification:
-                notification();
+                notification();     //消息提醒
                 break;
             case R.id.setting_privacy:
-                privacy();
+                privacy();          //隐私
                 break;
             case R.id.setting_retrieve:
-                retrieve();
+                retrieve();         //找回密码
                 break;
             case R.id.setting_security:
-                security();
+                security();         //安全
                 break;
             case R.id.setting_clean:
-                clean();
+                clean();            //清除数据
                 break;
             case R.id.setting_update:
-                update();
+                update();           //检查更新
                 break;
             case R.id.setting_outlogin:
-                outLogin();
+                outLogin();         //退出登录
                 break;
         }
     }
@@ -119,8 +124,8 @@ public class SettingActivity extends BaseActivity {
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                SPManger("notification","notificationType",notificationType);
-                SPManger("notification","notificationClasses",notificationClasses);
+                spManger.put("notificationType",notificationType);
+                spManger.put("notificationClasses",notificationClasses);
             }
         });
         builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -165,7 +170,7 @@ public class SettingActivity extends BaseActivity {
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                SPManger("privacy","privacyType",privacyType);
+                spManger.put("privacyType",privacyType);
             }
         });
         builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -195,7 +200,9 @@ public class SettingActivity extends BaseActivity {
     }
 
     private void clean() {
-
+        DataCleanManager dtatCleanManager = new DataCleanManager();
+        dtatCleanManager.cleanApplicationData(this);
+        Toast.makeText(this, "正在清除数据...", Toast.LENGTH_SHORT).show();
     }
 
 }

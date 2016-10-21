@@ -1,4 +1,4 @@
-package com.yufa.mymap.UI;
+package com.yufa.mymap.CustomView;
 
 /**
  * Created by Administrator on 2016/10/5.

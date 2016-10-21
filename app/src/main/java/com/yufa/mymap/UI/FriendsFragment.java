@@ -119,7 +119,7 @@ public class FriendsFragment extends Fragment implements SwipeRefreshLayout.OnRe
         holder.setOnClickListener(R.id.item_group, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showSnackbar(v);
+
             }
         });
     }

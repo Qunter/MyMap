@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.yufa.mymap.R;
+import com.yufa.mymap.Util.SPManger;
 
 /**
  * Created by luyufa on 2016/9/7.
@@ -53,10 +54,18 @@ public class LoadingActivity extends BaseActivity {
     }
     @SuppressLint("NewApi")
     private void isLogin() {
-        Intent intent = new Intent();
-        intent.setClass(this,LoginsActivity.class);
-        startActivity(intent);
-        finish();
-
+        SPManger spManger = new SPManger(LoadingActivity.this,"Login");
+        String phoneNumber = (String)spManger.get("userName");
+        if (phoneNumber == null||phoneNumber.equals("")){
+            Intent intent = new Intent();
+            intent.setClass(this,LoginsActivity.class);
+            startActivity(intent);
+            finish();
+        }else{
+            Intent intent = new Intent();
+            intent.setClass(this,MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 }

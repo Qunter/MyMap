@@ -15,7 +15,7 @@
             android:id="@+id/userImage"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="40dp"
             android:layout_marginBottom="20dp"
             app:border_width="1dp"
             app:border_color="@color/colorWhite"
@@ -28,8 +28,19 @@
         android:layout_height="match_parent"
         android:background="@drawable/login_background"
         android:orientation="vertical">
+        <Button
+            android:padding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/button_background"
+            android:id="@+id/friendinfo_username"
+            android:textColor="@color/colorWhite"
+            android:text="18079733121"/>
 
-        <TextView
+        <Button
             android:padding="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -37,11 +48,11 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:background="@drawable/button_background"
-            android:id="@+id/userinfo_shortcall"
+            android:id="@+id/friendinfo_shortcall"
             android:textColor="@color/colorWhite"
-            android:text="昵称：错觉" />
+            android:text="加入群组" />
 
-        <TextView
+        <Button
             android:padding="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -49,10 +60,10 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:background="@drawable/button_background"
-            android:id="@+id/userinfo_personality"
+            android:id="@+id/friendinfo_personality"
             android:textColor="@color/colorWhite"
-            android:text="个性签名：朋友多，就是好！"/>
-        <TextView
+            android:text="TA的QQ"/>
+        <Button
             android:padding="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -60,32 +71,10 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:background="@drawable/button_background"
-            android:id="@+id/userinfo_qq"
+            android:id="@+id/friendinfo_address"
             android:textColor="@color/colorWhite"
-            android:text="我的QQ:未绑定"/>
-        <TextView
-            android:padding="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:background="@drawable/button_background"
-            android:id="@+id/userinfo_wechat"
-            android:textColor="@color/colorWhite"
-            android:text="我的微信：未绑定"/>
-        <TextView
-            android:padding="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:background="@drawable/button_background"
-            android:id="@+id/userinfo_sina"
-            android:textColor="@color/colorWhite"
-            android:text="我的微博：未绑定"/>
-        <TextView
+            android:text="TA的微信"/>
+        <Button
             android:padding="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -94,7 +83,7 @@
             android:layout_marginRight="16dp"
             android:background="@drawable/button_background"
             android:textColor="@color/colorWhite"
-            android:text="我的资历：1年3个月"/>
+            android:text="删除好友"/>
     </LinearLayout>
 
 </LinearLayout>

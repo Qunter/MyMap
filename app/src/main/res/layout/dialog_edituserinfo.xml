@@ -39,15 +39,42 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:id="@+id/edituserinfo_address"
+        android:id="@+id/edituserinfo_qq"
         app:errorEnabled="true"
         app:hintEnabled="true">
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="请输入您的地址"
+            android:hint="请输入您的QQ"
             tools:ignore="TextFields" />
     </android.support.design.widget.TextInputLayout>
-
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:id="@+id/edituserinfo_wechat"
+        app:errorEnabled="true"
+        app:hintEnabled="true">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="请输入您的微信"
+            tools:ignore="TextFields" />
+    </android.support.design.widget.TextInputLayout>
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:id="@+id/edituserinfo_sina"
+        app:errorEnabled="true"
+        app:hintEnabled="true">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="请输入您的新浪微博"
+            tools:ignore="TextFields" />
+    </android.support.design.widget.TextInputLayout>
 
 </LinearLayout>

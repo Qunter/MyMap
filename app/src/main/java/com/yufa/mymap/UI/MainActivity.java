@@ -4,8 +4,6 @@ package com.yufa.mymap.UI;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -22,6 +20,7 @@ import android.widget.TextView;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.yufa.mymap.R;
+import com.yufa.mymap.Util.SPManger;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -86,12 +85,28 @@ public class MainActivity extends BaseActivity {
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
         headerView.setBackgroundResource(R.color.colorAccent);
-        ImageView imageView = (ImageView) headerView.findViewById(R.id.nav_head_main_imageView);
-        TextView textView = (TextView) headerView.findViewById(R.id.nav_head_main_text);
-        textView.setText("卢育发");
-        Resources resources = getResources();
-        Bitmap src = BitmapFactory.decodeResource(resources, R.drawable.image);
-        imageView.setImageBitmap(src);
+        SPManger spManger = new SPManger(this,"UserInfo");
+        ImageView icon = (ImageView) headerView.findViewById(R.id.nav_head_main_imageView);
+        TextView name = (TextView) headerView.findViewById(R.id.nav_head_main_text);
+        TextView text = (TextView)headerView.findViewById(R.id.nav_head_main_textView);
+        String url = (String) spManger.get("imagePath");
+        if(url != null){
+            icon.setImageBitmap(BitmapFactory.decodeFile(url));
+        }else {
+            icon.setImageResource(R.drawable.image);
+        }
+        String shortcall = (String) spManger.get("username");
+        if (shortcall != null){
+            name.setText(shortcall.substring(3,shortcall.length()));
+        }else{
+            name.setText("错觉");
+        }
+        String personality = (String) spManger.get("personality");
+        if(personality !=null){
+            text.setText(personality.substring(5,personality.length()));
+        }else{
+            text.setText("朋友多，就是好");
+        }
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
             @Override

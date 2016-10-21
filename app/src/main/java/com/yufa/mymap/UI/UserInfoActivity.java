@@ -1,9 +1,11 @@
 package com.yufa.mymap.UI;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -19,16 +21,16 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.yufa.mymap.CustomView.CircleView;
-import com.yufa.mymap.Entity.EditUser;
+import com.yufa.mymap.CustomView.SelectPicPopupWindow;
 import com.yufa.mymap.R;
 import com.yufa.mymap.Util.FileTool;
+import com.yufa.mymap.Util.SPManger;
 
 import java.io.File;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import cn.bmob.v3.BmobQuery;
 
 /**
  * Created by luyufa on 2016/9/29.
@@ -38,34 +40,77 @@ public class UserInfoActivity extends BaseActivity {
 
     @BindView(R.id.userImage)
     CircleView userImage;
-    ;
-    @BindView(R.id.userinfo_username)
-    TextView userinfoUsername;
     @BindView(R.id.userinfo_shortcall)
     TextView userinfoShortcall;
     @BindView(R.id.userinfo_personality)
     TextView userinfoPersonality;
-    @BindView(R.id.userinfo_address)
-    TextView userinfoAddress;
+    @BindView(R.id.userinfo_qq)
+    TextView userinfoQq;
+    @BindView(R.id.userinfo_wechat)
+    TextView userinfoWechat;
+    @BindView(R.id.userinfo_sina)
+    TextView userinfoSina;
     private SelectPicPopupWindow menuWindow;
     private static final int REQUESTCODE_PICK = 0;
     private static final int REQUESTCODE_TAKE = 1;
     private static final int REQUESTCODE_CUTTING = 2;
     private static final String IMAGE_FILE_NAME = "avatarImage.jpg";
     private String urlpath = "";
+    private SPManger spManger;
 
     @Override
     public void initViews() {
         super.initViews();
         setContentView(R.layout.activity_userinfo);
         ButterKnife.bind(this);
+        spManger = new SPManger(this, "UserInfo");
+        loading();
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void loading(){
+        String url = (String) spManger.get("imagePath");
+        if(url != null){
+            userImage.setImageBitmap(BitmapFactory.decodeFile(url));
+        }else {
+            userImage.setImageResource(R.drawable.image);
+        }
+        String shortcall = (String) spManger.get("username");
+        if (shortcall != null){
+            userinfoShortcall.setText(shortcall);
+        }else{
+            userinfoShortcall.setText("昵称：错觉");
+        }
+        String personality = (String) spManger.get("personality");
+        if(personality !=null){
+            userinfoPersonality.setText(personality);
+        }else{
+            userinfoPersonality.setText("个性签名:朋友多，就是好");
+        }
+        String qq = (String)spManger.get("qq");
+        if(qq != null ){
+            userinfoQq.setText(qq);
+        }else{
+            userinfoQq.setText("我的QQ：未绑定");
+        }
+        String wechat = (String)spManger.get("wechat");
+        if(wechat != null ){
+            userinfoWechat.setText(wechat);
+        }else{
+            userinfoWechat.setText("我的微信：未绑定");
+        }
+        String sina = (String)spManger.get("sina");
+        if (sina != null ){
+            userinfoSina.setText(sina);
+        }else{
+            userinfoSina.setText("我的微博：未绑定");
+        }
     }
 
     @OnClick(R.id.userImage)
     public void onClick() {
         menuWindow = new SelectPicPopupWindow(this, itemsOnClick);
-        menuWindow.showAtLocation(findViewById(R.id.userImage),
-                Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+        menuWindow.showAtLocation(findViewById(R.id.userImage), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
     }
 
     private View.OnClickListener itemsOnClick = new View.OnClickListener() {
@@ -75,8 +120,7 @@ public class UserInfoActivity extends BaseActivity {
             switch (v.getId()) {
                 case R.id.takePhotoBtn:
                     Intent takeIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    takeIntent.putExtra(MediaStore.EXTRA_OUTPUT,
-                            Uri.fromFile(new File(Environment.getExternalStorageDirectory(), IMAGE_FILE_NAME)));
+                    takeIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(Environment.getExternalStorageDirectory(), IMAGE_FILE_NAME)));
                     startActivityForResult(takeIntent, REQUESTCODE_TAKE);
                     break;
                 case R.id.pickPhotoBtn:
@@ -132,6 +176,7 @@ public class UserInfoActivity extends BaseActivity {
             Bitmap photo = extras.getParcelable("data");
             Drawable drawable = new BitmapDrawable(null, photo);
             urlpath = FileTool.saveFile(this, "temphead.jpg", photo);
+            spManger.put("imagePath",urlpath);
             userImage.setImageDrawable(drawable);
         }
     }
@@ -162,10 +207,14 @@ public class UserInfoActivity extends BaseActivity {
         View view = layoutInflater.inflate(R.layout.dialog_edituserinfo, null);
         final TextInputLayout userName = (TextInputLayout) view.findViewById(R.id.edituserinfo_username);
         final TextInputLayout personality = (TextInputLayout) view.findViewById(R.id.edituserinfo_personality);
-        final TextInputLayout address = (TextInputLayout) view.findViewById(R.id.edituserinfo_address);
+        final TextInputLayout qqs = (TextInputLayout) view.findViewById(R.id.edituserinfo_qq);
+        final TextInputLayout wechats = (TextInputLayout) view.findViewById(R.id.edituserinfo_wechat);
+        final TextInputLayout sinas = (TextInputLayout) view.findViewById(R.id.edituserinfo_sina);
         userName.getEditText().setText(userinfoShortcall.getText().toString().substring(3));
         personality.getEditText().setText(userinfoPersonality.getText().toString().substring(5));
-        address.getEditText().setText(userinfoAddress.getText().toString().substring(5));
+        qqs.getEditText().setText(userinfoQq.getText().toString().substring(5));
+        wechats.getEditText().setText(userinfoWechat.getText().toString().substring(5));
+        sinas.getEditText().setText(userinfoSina.getText().toString().substring(5));
         builer.setView(view);
         builer.setNegativeButton("取消", new DialogInterface.OnClickListener() {
             @Override
@@ -178,39 +227,43 @@ public class UserInfoActivity extends BaseActivity {
             public void onClick(DialogInterface dialog, int which) {
                 String name = userName.getEditText().getText().toString();
                 String personal = personality.getEditText().getText().toString();
-                String addres = address.getEditText().getText().toString();
-                beforeSave(name,personal,addres);
-                
+                String qq = qqs.getEditText().getText().toString();
+                String wechat = wechats.getEditText().getText().toString();
+                String sina = sinas.getEditText().getText().toString();
+                beforeSave(name, personal, qq,wechat,sina);
             }
         });
         builer.create().show();
 
     }
 
-    private void beforeSave(String username,String personality,String address){
+    private void beforeSave(String username, String personality, String qq,String wechat,String sina) {
 
-        if (username.equals("")){
-            username = userinfoShortcall.getText().toString();
-        }else{
+        if (!username.equals("")) {
             username = "昵称：" + username;
+            userinfoShortcall.setText(username);
+            spManger.put("username", username);
         }
-        if (personality.equals("")){
-            personality = userinfoPersonality.getText().toString();
-        }else{
+        if (!personality.equals("")) {
             personality = "个性签名：" + personality;
+            userinfoPersonality.setText(personality);
+            spManger.put("personality", personality);
         }
-        if (address.equals("")){
-            address = userinfoAddress.getText().toString();
-        }else{
-            address = "我的地址：" + address;
+        if(!qq.equals("")){
+            qq = "我的QQ：" + qq;
+            userinfoQq.setText(qq);
+            spManger.put("qq", qq);
         }
-        userinfoShortcall.setText(username);
-        userinfoPersonality.setText(personality);
-        userinfoAddress.setText(address);
-        EditUser editUser = new EditUser(username,personality,address);
-        doSave(editUser);
+        if(!wechat.equals("")){
+            wechat = "我的微信：" + wechat;
+            userinfoWechat.setText(wechat);
+            spManger.put("wechat",wechat);
+        }
+        if(!sina.equals("")){
+            sina = "我的微博：" + sina;
+            userinfoSina.setText(sina);
+            spManger.put("sina",sina);
+        }
     }
-    private void doSave(EditUser editUser){
-        
-    }
+
 }

@@ -8,14 +8,18 @@ public class EditUser {
 
     private String username;
     private String personality;
-    private String address;
+    private String qq;
+    private String wechat;
+    private String sina;
 
     public EditUser(){}
 
-    public EditUser(String username, String personality, String address) {
+    public EditUser(String username, String personality, String qq, String wechat, String sina) {
         this.username = username;
         this.personality = personality;
-        this.address = address;
+        this.qq = qq;
+        this.wechat = wechat;
+        this.sina = sina;
     }
 
     public String getUsername() {
@@ -34,11 +38,27 @@ public class EditUser {
         this.personality = personality;
     }
 
-    public String getAddress() {
-        return address;
+    public String getQq() {
+        return qq;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setQq(String qq) {
+        this.qq = qq;
+    }
+
+    public String getWechat() {
+        return wechat;
+    }
+
+    public void setWechat(String wechat) {
+        this.wechat = wechat;
+    }
+
+    public String getSina() {
+        return sina;
+    }
+
+    public void setSina(String sina) {
+        this.sina = sina;
     }
 }

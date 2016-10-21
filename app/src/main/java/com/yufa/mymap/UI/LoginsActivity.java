@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Build;
-import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.ActionBar;
 import android.text.Editable;
@@ -20,6 +19,7 @@ import android.widget.ImageButton;
 import com.yufa.mymap.Entity.UserBase;
 import com.yufa.mymap.R;
 import com.yufa.mymap.Util.JudgeTool;
+import com.yufa.mymap.Util.SPManger;
 import com.yufa.mymap.Util.ShowTool;
 
 import java.util.List;
@@ -155,7 +155,7 @@ public class LoginsActivity extends BaseActivity {
         builder.create().show();
     }
 
-    private void login(String phoneNumber, final String password) {
+    private void login(final String phoneNumber, final String password) {
         BmobQuery<UserBase> query = new BmobQuery<UserBase>();
         query.addWhereEqualTo("phoneNumber", phoneNumber);
         query.findObjects(new FindListener<UserBase>() {
@@ -164,17 +164,14 @@ public class LoginsActivity extends BaseActivity {
                 if (e != null) {
                     Log.d("ERROR", e.getErrorCode() + "");
                 } else {
-                    if (password.equals(list.get(0).getPassword()))
+                    if (password.equals(list.get(0).getPassword())) {
+                        SPManger spManger = new SPManger(LoginsActivity.this, "Login");
+                        spManger.put("username",phoneNumber);
+                        spManger.put("password",password);
                         toNewActivity(MainActivity.class);
+                    }
                 }
             }
         });
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 }
