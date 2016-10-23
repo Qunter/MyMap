@@ -1,7 +1,5 @@
 package com.yufa.mymap.Entity;
 
-import java.util.List;
-
 import cn.bmob.v3.BmobObject;
 
 /**
@@ -9,51 +7,57 @@ import cn.bmob.v3.BmobObject;
  */
 public class Group extends BmobObject{
 
-    private Integer image;
-    private String name;
-    private String some;
-    private List<Friend> friends;
+    private String groupName;
+    private String userName;
+    private String friend;
+    private String friendName;
 
     public Group() {
 
     }
 
-    public Group(Integer image, String name, String some, List<Friend> friends) {
-        this.image = image;
-        this.name = name;
-        this.some = some;
-        this.friends = friends;
+    public Group(String groupName, String userName, String friend, String friendName) {
+        this.groupName = groupName;
+        this.userName = userName;
+        this.friend = friend;
+        this.friendName = friendName;
     }
 
-    public Integer getImage() {
-        return image;
+    public Group(String userName, String friend, String friendName) {
+        this.userName = userName;
+        this.friend = friend;
+        this.friendName = friendName;
     }
 
-    public void setImage(Integer image) {
-        this.image = image;
+    public String getGroupName() {
+        return groupName;
     }
 
-    public String getName() {
-        return name;
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getUserName() {
+        return userName;
     }
 
-    public String getSome() {
-        return some;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public void setSome(String some) {
-        this.some = some;
+    public String getFriend() {
+        return friend;
     }
 
-    public List<Friend> getFriends() {
-        return friends;
+    public void setFriend(String friend) {
+        this.friend = friend;
     }
 
-    public void setFriends(List<Friend> friends) {
-        this.friends = friends;
+    public String getFriendName() {
+        return friendName;
+    }
+
+    public void setFriendName(String friendName) {
+        this.friendName = friendName;
     }
 }

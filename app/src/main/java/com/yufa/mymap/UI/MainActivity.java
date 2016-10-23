@@ -4,13 +4,16 @@ package com.yufa.mymap.UI;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -107,6 +110,14 @@ public class MainActivity extends BaseActivity {
         }else{
             text.setText("朋友多，就是好");
         }
+        headerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this,UserInfoActivity.class);
+                startActivity(intent);
+            }
+        });
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -118,8 +129,11 @@ public class MainActivity extends BaseActivity {
                         toNewActivity(UserInfoActivity.class);
                         break;
                     }
-                    case R.id.nav_theme:{       //主题切换
-                        toNewActivity(ThemeActivity.class);
+                    case R.id.nav_friend:{       //主题切换
+                        toNewActivity(FindActivity.class);
+                        break;
+                    }
+                    case R.id.nav_group:{
                         break;
                     }
                     case R.id.nav_settings:     //设置
@@ -206,5 +220,23 @@ public class MainActivity extends BaseActivity {
             super.onBackPressed();
         }
     }
+    private void showSnackbar(View v) {
+        Snackbar.make(v, "您确定退出吗？", Snackbar.LENGTH_SHORT).setAction("确定", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.this.finish();
+            }
+        }).show();
+    }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+            showSnackbar(drawerLayout);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }

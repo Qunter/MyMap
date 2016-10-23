@@ -136,9 +136,14 @@
             android:theme="@style/AppTheme"
             android:label="@string/aboutUs"
             android:parentActivityName=".UI.MainActivity"/>
-        <activity android:name=".UI.ThemeActivity"
+        <activity android:name=".UI.FindActivity"
             android:theme="@style/AppTheme"
             android:label="@string/theme"
+            android:parentActivityName=".UI.MainActivity"
+            tools:ignore="InnerclassSeparator,UnusedAttribute" />
+        <activity android:name=".UI.FriendInfo"
+            android:label="好友信息"
+            android:theme="@style/AppTheme"
             android:parentActivityName=".UI.MainActivity"
             tools:ignore="InnerclassSeparator,UnusedAttribute" />
         <service android:name="com.amap.api.location.APSService"/>

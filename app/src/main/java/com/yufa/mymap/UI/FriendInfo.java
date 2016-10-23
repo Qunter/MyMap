@@ -1,10 +1,10 @@
 package com.yufa.mymap.UI;
 
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
 import com.yufa.mymap.CustomView.CircleView;
+import com.yufa.mymap.Entity.User;
 import com.yufa.mymap.R;
 
 import butterknife.BindView;
@@ -17,40 +17,43 @@ import butterknife.OnClick;
  */
 
 public class FriendInfo extends BaseActivity {
+
+
     @BindView(R.id.userImage)
     CircleView userImage;
-    @BindView(R.id.friendinfo_username)
-    Button friendinfoUsername;
-    @BindView(R.id.friendinfo_shortcall)
-    Button friendinfoShortcall;
-    @BindView(R.id.friendinfo_personality)
-    Button friendinfoPersonality;
-    @BindView(R.id.friendinfo_address)
-    Button friendinfoAddress;
+    @BindView(R.id.friendinfo_qq)
+    Button friendinfoQq;
+    @BindView(R.id.friendinfo_wechat)
+    Button friendinfoWechat;
+    @BindView(R.id.friendinfo_sina)
+    Button friendinfoSina;
+    @BindView(R.id.friendinfo_phone)
+    Button friendinfoPhone;
+    @BindView(R.id.friendinfo_delete)
+    Button friendinfoDelete;
+    private User friend;
 
     @Override
     public void initViews() {
         super.initViews();
         setContentView(R.layout.activity_friendinfo);
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
+        friend = (User) getIntent().getSerializableExtra("friend");
     }
 
-    @OnClick({R.id.friendinfo_username, R.id.friendinfo_shortcall, R.id.friendinfo_personality, R.id.friendinfo_address})
+
+    @OnClick({R.id.friendinfo_qq, R.id.friendinfo_wechat, R.id.friendinfo_sina, R.id.friendinfo_phone, R.id.friendinfo_delete})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.friendinfo_username:
+            case R.id.friendinfo_qq:
                 break;
-            case R.id.friendinfo_shortcall:
+            case R.id.friendinfo_wechat:
                 break;
-            case R.id.friendinfo_personality:
+            case R.id.friendinfo_sina:
                 break;
-            case R.id.friendinfo_address:
+            case R.id.friendinfo_phone:
+                break;
+            case R.id.friendinfo_delete:
                 break;
         }
     }

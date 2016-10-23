@@ -1,5 +1,10 @@
 package com.yufa.mymap.Util;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
+import android.os.Environment;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -7,11 +12,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Bitmap.CompressFormat;
-import android.os.Environment;
 
 public class FileTool {
     /**
@@ -64,8 +64,7 @@ public class FileTool {
     public static String saveFile(Context c, String filePath, String fileName, byte[] bytes) {
         String fileFullName = "";
         FileOutputStream fos = null;
-        String dateFolder = new SimpleDateFormat("yyyyMMdd", Locale.CHINA)
-                .format(new Date());
+        String dateFolder = new SimpleDateFormat("yyyyMMdd", Locale.CHINA).format(new Date());
         try {
             String suffix = "";
             if (filePath == null || filePath.trim().length() == 0) {

@@ -19,18 +19,31 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.yufa.mymap.CustomView.CircleView;
 import com.yufa.mymap.CustomView.SelectPicPopupWindow;
+import com.yufa.mymap.Entity.User;
 import com.yufa.mymap.R;
 import com.yufa.mymap.Util.FileTool;
 import com.yufa.mymap.Util.SPManger;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.datatype.BmobFile;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.DownloadFileListener;
+import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.UpdateListener;
+import cn.bmob.v3.listener.UploadFileListener;
 
 /**
  * Created by luyufa on 2016/9/29.
@@ -57,6 +70,7 @@ public class UserInfoActivity extends BaseActivity {
     private static final String IMAGE_FILE_NAME = "avatarImage.jpg";
     private String urlpath = "";
     private SPManger spManger;
+    private String userName;
 
     @Override
     public void initViews() {
@@ -64,28 +78,65 @@ public class UserInfoActivity extends BaseActivity {
         setContentView(R.layout.activity_userinfo);
         ButterKnife.bind(this);
         spManger = new SPManger(this, "UserInfo");
+        queryData();
         loading();
+    }
+
+    private void queryData(){
+        final SPManger sp = new SPManger(this,"Login");
+        userName = (String)sp.get("userName");
+        BmobQuery<User> query = new BmobQuery<User>();
+        query.addWhereEqualTo("userName", userName);
+        query.findObjects(new FindListener<User>() {
+            @Override
+            public void done(List<User> list, BmobException e) {
+                if (e == null && list.size() != 0){
+                    User user = list.get(0);
+                    spManger.put("username", "昵称：" + user.getName());
+                    spManger.put("personality","个性签名:" + user.getPersonality());
+                    spManger.put("qq","我的QQ：" + user.getQq());
+                    spManger.put("wechat","我的微信：" +user.getWeChat());
+                    spManger.put("sina","我的微博：" +user.getSinaweibo());
+                    BmobFile image = user.getImage();
+                    final String dateFolder = new SimpleDateFormat("yyyyMMdd", Locale.CHINA).format(new Date());
+                    image.download(new File(Environment.getExternalStorageDirectory() + "/JiaXT/" + dateFolder + "/"),new DownloadFileListener() {
+                        @Override
+                        public void done(String s, BmobException e) {
+                            spManger.put("imagePath",Environment.getExternalStorageDirectory() + "/JiaXT/" + dateFolder + "/");
+                        }
+
+                        @Override
+                        public void onProgress(Integer integer, long l) {
+
+                        }
+                    });
+                }
+            }
+        });
+
     }
 
     @SuppressLint("SetTextI18n")
     private void loading(){
-        String url = (String) spManger.get("imagePath");
+        String url = (String) spManger.get("imageLocationPath");
         if(url != null){
             userImage.setImageBitmap(BitmapFactory.decodeFile(url));
-        }else {
+        }else if ((String) spManger.get("imagePath") != null){
+            userImage.setImageBitmap(BitmapFactory.decodeFile((String) spManger.get("imagePath")));
+        }else{
             userImage.setImageResource(R.drawable.image);
         }
         String shortcall = (String) spManger.get("username");
         if (shortcall != null){
             userinfoShortcall.setText(shortcall);
         }else{
-            userinfoShortcall.setText("昵称：错觉");
+            userinfoShortcall.setText("昵称：18079733121");
         }
         String personality = (String) spManger.get("personality");
         if(personality !=null){
             userinfoPersonality.setText(personality);
         }else{
-            userinfoPersonality.setText("个性签名:朋友多，就是好");
+            userinfoPersonality.setText("个性签名:");
         }
         String qq = (String)spManger.get("qq");
         if(qq != null ){
@@ -176,9 +227,26 @@ public class UserInfoActivity extends BaseActivity {
             Bitmap photo = extras.getParcelable("data");
             Drawable drawable = new BitmapDrawable(null, photo);
             urlpath = FileTool.saveFile(this, "temphead.jpg", photo);
-            spManger.put("imagePath",urlpath);
+            spManger.put("imageLocationPath",urlpath);
+            upload(urlpath);
             userImage.setImageDrawable(drawable);
         }
+    }
+
+    private void upload(String picPath){
+        BmobFile bmobFile = new BmobFile(new File(picPath));
+        bmobFile.uploadblock(new UploadFileListener() {
+            @Override
+            public void done(BmobException e) {
+                if (e == null){
+                    Toast.makeText(UserInfoActivity.this,"更新成功",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    private void download(){
+
     }
 
     @Override
@@ -264,6 +332,23 @@ public class UserInfoActivity extends BaseActivity {
             userinfoSina.setText(sina);
             spManger.put("sina",sina);
         }
+        save(username, personality, qq,wechat,sina);
+    }
+
+    private void save(String username, String personality, String qq,String wechat,String sina){
+        User user = new User();
+        user.setName(username);
+        user.setPersonality(personality);
+        user.setQq(qq);
+        user.setWeChat(wechat);
+        user.setSinaweibo(sina);
+        user.update(new UpdateListener() {
+
+            @Override
+            public void done(BmobException e) {
+
+            }
+        });
     }
 
 }

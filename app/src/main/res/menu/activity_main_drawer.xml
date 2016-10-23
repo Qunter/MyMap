@@ -7,9 +7,13 @@
             android:icon="@drawable/ic_person_blue_500_24dp"
             android:title="个人信息" />
         <item
-            android:id="@+id/nav_theme"
+            android:id="@+id/nav_friend"
             android:icon="@drawable/ic_theme"
-            android:title="切换主题"/>
+            android:title="好友"/>
+        <item
+            android:id="@+id/nav_group"
+            android:icon="@drawable/ic_group_add"
+            android:title="圈子"/>
         <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_settings"

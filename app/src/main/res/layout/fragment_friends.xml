@@ -5,15 +5,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <SearchView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="?attr/actionBarSize"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:queryHint="search"
-        android:iconifiedByDefault="false"
-        android:id="@+id/friend_search"/>
-
     <include layout="@layout/content_recyclerview"/>
 
 </LinearLayout>
