@@ -33,7 +33,7 @@
             android:padding="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="96dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:background="@drawable/button_background"
@@ -52,49 +52,7 @@
             android:id="@+id/userinfo_personality"
             android:textColor="@color/colorWhite"
             android:text="个性签名：朋友多，就是好！"/>
-        <TextView
-            android:padding="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:background="@drawable/button_background"
-            android:id="@+id/userinfo_qq"
-            android:textColor="@color/colorWhite"
-            android:text="我的QQ:未绑定"/>
-        <TextView
-            android:padding="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:background="@drawable/button_background"
-            android:id="@+id/userinfo_wechat"
-            android:textColor="@color/colorWhite"
-            android:text="我的微信：未绑定"/>
-        <TextView
-            android:padding="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:background="@drawable/button_background"
-            android:id="@+id/userinfo_sina"
-            android:textColor="@color/colorWhite"
-            android:text="我的微博：未绑定"/>
-        <TextView
-            android:padding="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:background="@drawable/button_background"
-            android:textColor="@color/colorWhite"
-            android:text="我的资历：1年3个月"/>
+
     </LinearLayout>
 
 </LinearLayout>

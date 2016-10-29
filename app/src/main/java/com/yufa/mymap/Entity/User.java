@@ -8,9 +8,7 @@ import cn.bmob.v3.datatype.BmobFile;
 public class User extends UserBase {
 
     private String name;
-    private String qq;
-    private String weChat;
-    private String sinaweibo;
+    private String userName;
     private BmobFile image;
     private String personality;
 
@@ -19,6 +17,14 @@ public class User extends UserBase {
 
     public BmobFile getImage() {
         return image;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public void setImage(BmobFile image) {
@@ -31,31 +37,6 @@ public class User extends UserBase {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-
-    public String getQq() {
-        return qq;
-    }
-
-    public void setQq(String qq) {
-        this.qq = qq;
-    }
-
-    public String getWeChat() {
-        return weChat;
-    }
-
-    public void setWeChat(String weChat) {
-        this.weChat = weChat;
-    }
-
-    public String getSinaweibo() {
-        return sinaweibo;
-    }
-
-    public void setSinaweibo(String sinaweibo) {
-        this.sinaweibo = sinaweibo;
     }
 
     public String getPersonality() {

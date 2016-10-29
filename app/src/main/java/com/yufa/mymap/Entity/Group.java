@@ -9,26 +9,15 @@ public class Group extends BmobObject{
 
     private String groupName;
     private String userName;
-    private String friend;
-    private String friendName;
 
     public Group() {
 
     }
 
-    public Group(String groupName, String userName, String friend, String friendName) {
+    public Group(String groupName, String userName) {
         this.groupName = groupName;
         this.userName = userName;
-        this.friend = friend;
-        this.friendName = friendName;
     }
-
-    public Group(String userName, String friend, String friendName) {
-        this.userName = userName;
-        this.friend = friend;
-        this.friendName = friendName;
-    }
-
     public String getGroupName() {
         return groupName;
     }
@@ -45,19 +34,4 @@ public class Group extends BmobObject{
         this.userName = userName;
     }
 
-    public String getFriend() {
-        return friend;
-    }
-
-    public void setFriend(String friend) {
-        this.friend = friend;
-    }
-
-    public String getFriendName() {
-        return friendName;
-    }
-
-    public void setFriendName(String friendName) {
-        this.friendName = friendName;
-    }
 }

@@ -10,6 +10,7 @@ import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,15 +57,28 @@ public class FriendsFragment extends Fragment implements SwipeRefreshLayout.OnRe
                 case 0x101: {
                     BmobQuery<Relationship> query = new BmobQuery<Relationship>();
                     query.addWhereEqualTo("userName", userName);
-                    query.setLimit(50);
                     query.findObjects( new FindListener<Relationship>() {
                         @Override
                         public void done(List<Relationship> list, BmobException e) {
                             if (e == null){
                                 for(int i = 0;i<list.size();i++){
-                                    data.add(list.get(i).getFriend());
+                                    BmobQuery<User> user = new BmobQuery<User>();
+                                    user.addWhereEqualTo("userName",list.get(i).getFriend());
+                                    user.findObjects(new FindListener<User>() {
+                                        @Override
+                                        public void done(List<User> list, BmobException e) {
+                                            if (e == null){
+                                                data.add(list.get(0));
+                                                update.sendEmptyMessage(0x110);
+                                                Log.e("----------->",list.size() + "User size");
+                                            }else{
+                                                Log.e("----------->","User is null");
+                                            }
+                                        }
+                                    });
                                 }
-                                update.sendEmptyMessage(0x110);
+                            }else{
+                                Log.e("----------->","Relationship is null");
                             }
                         }
                     });
@@ -92,9 +106,8 @@ public class FriendsFragment extends Fragment implements SwipeRefreshLayout.OnRe
             Bmob.initialize(this.getContext(), "ff5f5d16336bb6a0e6d0a05e839f8b20");
         }
         SPManger spManger = new SPManger(this.getActivity(),"Login");
-        userName = (String) spManger.get("userName");
+        userName = (String) spManger.get("username");
         data = new ArrayList<User>();
-        refresh.sendEmptyMessage(0x101);
     }
 
     @Override
@@ -102,6 +115,7 @@ public class FriendsFragment extends Fragment implements SwipeRefreshLayout.OnRe
         View view = inflater.inflate(R.layout.fragment_friends, null);
         ButterKnife.bind(this, view);
         swipeRefresh.setOnRefreshListener(this);
+        refresh.sendEmptyMessage(0x101);
         return view;
     }
 

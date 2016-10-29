@@ -57,12 +57,6 @@ public class UserInfoActivity extends BaseActivity {
     TextView userinfoShortcall;
     @BindView(R.id.userinfo_personality)
     TextView userinfoPersonality;
-    @BindView(R.id.userinfo_qq)
-    TextView userinfoQq;
-    @BindView(R.id.userinfo_wechat)
-    TextView userinfoWechat;
-    @BindView(R.id.userinfo_sina)
-    TextView userinfoSina;
     private SelectPicPopupWindow menuWindow;
     private static final int REQUESTCODE_PICK = 0;
     private static final int REQUESTCODE_TAKE = 1;
@@ -84,7 +78,7 @@ public class UserInfoActivity extends BaseActivity {
 
     private void queryData(){
         final SPManger sp = new SPManger(this,"Login");
-        userName = (String)sp.get("userName");
+        userName = (String)sp.get("username");
         BmobQuery<User> query = new BmobQuery<User>();
         query.addWhereEqualTo("userName", userName);
         query.findObjects(new FindListener<User>() {
@@ -94,9 +88,6 @@ public class UserInfoActivity extends BaseActivity {
                     User user = list.get(0);
                     spManger.put("username", "昵称：" + user.getName());
                     spManger.put("personality","个性签名:" + user.getPersonality());
-                    spManger.put("qq","我的QQ：" + user.getQq());
-                    spManger.put("wechat","我的微信：" +user.getWeChat());
-                    spManger.put("sina","我的微博：" +user.getSinaweibo());
                     BmobFile image = user.getImage();
                     final String dateFolder = new SimpleDateFormat("yyyyMMdd", Locale.CHINA).format(new Date());
                     image.download(new File(Environment.getExternalStorageDirectory() + "/JiaXT/" + dateFolder + "/"),new DownloadFileListener() {
@@ -137,24 +128,6 @@ public class UserInfoActivity extends BaseActivity {
             userinfoPersonality.setText(personality);
         }else{
             userinfoPersonality.setText("个性签名:");
-        }
-        String qq = (String)spManger.get("qq");
-        if(qq != null ){
-            userinfoQq.setText(qq);
-        }else{
-            userinfoQq.setText("我的QQ：未绑定");
-        }
-        String wechat = (String)spManger.get("wechat");
-        if(wechat != null ){
-            userinfoWechat.setText(wechat);
-        }else{
-            userinfoWechat.setText("我的微信：未绑定");
-        }
-        String sina = (String)spManger.get("sina");
-        if (sina != null ){
-            userinfoSina.setText(sina);
-        }else{
-            userinfoSina.setText("我的微博：未绑定");
         }
     }
 
@@ -275,14 +248,8 @@ public class UserInfoActivity extends BaseActivity {
         View view = layoutInflater.inflate(R.layout.dialog_edituserinfo, null);
         final TextInputLayout userName = (TextInputLayout) view.findViewById(R.id.edituserinfo_username);
         final TextInputLayout personality = (TextInputLayout) view.findViewById(R.id.edituserinfo_personality);
-        final TextInputLayout qqs = (TextInputLayout) view.findViewById(R.id.edituserinfo_qq);
-        final TextInputLayout wechats = (TextInputLayout) view.findViewById(R.id.edituserinfo_wechat);
-        final TextInputLayout sinas = (TextInputLayout) view.findViewById(R.id.edituserinfo_sina);
         userName.getEditText().setText(userinfoShortcall.getText().toString().substring(3));
         personality.getEditText().setText(userinfoPersonality.getText().toString().substring(5));
-        qqs.getEditText().setText(userinfoQq.getText().toString().substring(5));
-        wechats.getEditText().setText(userinfoWechat.getText().toString().substring(5));
-        sinas.getEditText().setText(userinfoSina.getText().toString().substring(5));
         builer.setView(view);
         builer.setNegativeButton("取消", new DialogInterface.OnClickListener() {
             @Override
@@ -295,17 +262,14 @@ public class UserInfoActivity extends BaseActivity {
             public void onClick(DialogInterface dialog, int which) {
                 String name = userName.getEditText().getText().toString();
                 String personal = personality.getEditText().getText().toString();
-                String qq = qqs.getEditText().getText().toString();
-                String wechat = wechats.getEditText().getText().toString();
-                String sina = sinas.getEditText().getText().toString();
-                beforeSave(name, personal, qq,wechat,sina);
+                beforeSave(name, personal);
             }
         });
         builer.create().show();
 
     }
 
-    private void beforeSave(String username, String personality, String qq,String wechat,String sina) {
+    private void beforeSave(String username, String personality) {
 
         if (!username.equals("")) {
             username = "昵称：" + username;
@@ -317,31 +281,13 @@ public class UserInfoActivity extends BaseActivity {
             userinfoPersonality.setText(personality);
             spManger.put("personality", personality);
         }
-        if(!qq.equals("")){
-            qq = "我的QQ：" + qq;
-            userinfoQq.setText(qq);
-            spManger.put("qq", qq);
-        }
-        if(!wechat.equals("")){
-            wechat = "我的微信：" + wechat;
-            userinfoWechat.setText(wechat);
-            spManger.put("wechat",wechat);
-        }
-        if(!sina.equals("")){
-            sina = "我的微博：" + sina;
-            userinfoSina.setText(sina);
-            spManger.put("sina",sina);
-        }
-        save(username, personality, qq,wechat,sina);
+        save(username, personality);
     }
 
-    private void save(String username, String personality, String qq,String wechat,String sina){
+    private void save(String username, String personality){
         User user = new User();
         user.setName(username);
         user.setPersonality(personality);
-        user.setQq(qq);
-        user.setWeChat(wechat);
-        user.setSinaweibo(sina);
         user.update(new UpdateListener() {
 
             @Override

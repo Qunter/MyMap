@@ -134,6 +134,7 @@ public class MainActivity extends BaseActivity {
                         break;
                     }
                     case R.id.nav_group:{
+                        toNewActivity(GroupActivity.class);
                         break;
                     }
                     case R.id.nav_settings:     //设置

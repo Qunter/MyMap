@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:gravity="center">
+
+        <com.yufa.mymap.CustomView.CircleView
+            android:id="@+id/userImage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="20dp"
+            app:border_width="1dp"
+            app:border_color="@color/colorWhite"
+            app:border_overlay="true"
+            android:src="@drawable/image"/>
+    </LinearLayout>
+
+    <include layout="@layout/content_recyclerview"/>
+
+</LinearLayout>

@@ -21,12 +21,6 @@ public class FriendInfo extends BaseActivity {
 
     @BindView(R.id.userImage)
     CircleView userImage;
-    @BindView(R.id.friendinfo_qq)
-    Button friendinfoQq;
-    @BindView(R.id.friendinfo_wechat)
-    Button friendinfoWechat;
-    @BindView(R.id.friendinfo_sina)
-    Button friendinfoSina;
     @BindView(R.id.friendinfo_phone)
     Button friendinfoPhone;
     @BindView(R.id.friendinfo_delete)
@@ -42,15 +36,9 @@ public class FriendInfo extends BaseActivity {
     }
 
 
-    @OnClick({R.id.friendinfo_qq, R.id.friendinfo_wechat, R.id.friendinfo_sina, R.id.friendinfo_phone, R.id.friendinfo_delete})
+    @OnClick({ R.id.friendinfo_phone, R.id.friendinfo_delete})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.friendinfo_qq:
-                break;
-            case R.id.friendinfo_wechat:
-                break;
-            case R.id.friendinfo_sina:
-                break;
             case R.id.friendinfo_phone:
                 break;
             case R.id.friendinfo_delete:

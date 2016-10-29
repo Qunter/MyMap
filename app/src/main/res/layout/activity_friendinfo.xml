@@ -28,45 +28,11 @@
         android:layout_height="match_parent"
         android:background="@drawable/login_background"
         android:orientation="vertical">
-
         <Button
             android:padding="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:background="@drawable/button_background"
-            android:id="@+id/friendinfo_qq"
-            android:textColor="@color/colorWhite"
-            android:text="TA的QQ"/>
-        <Button
-            android:padding="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:background="@drawable/button_background"
-            android:id="@+id/friendinfo_wechat"
-            android:textColor="@color/colorWhite"
-            android:text="TA的微信"/>
-        <Button
-            android:padding="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:background="@drawable/button_background"
-            android:id="@+id/friendinfo_sina"
-            android:textColor="@color/colorWhite"
-            android:text="TA的微博"/>
-        <Button
-            android:padding="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="96dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:background="@drawable/button_background"

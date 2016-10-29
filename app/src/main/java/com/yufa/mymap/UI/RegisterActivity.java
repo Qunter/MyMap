@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.yufa.mymap.Entity.User;
 import com.yufa.mymap.Entity.UserBase;
 import com.yufa.mymap.R;
 import com.yufa.mymap.Util.JudgeTool;
@@ -177,7 +178,7 @@ public class RegisterActivity extends BaseActivity {
         builder.create().show();
     }
 
-    private void save(String phoneNumber, String password) {
+    private void save(final String phoneNumber, String password) {
         UserBase userBase = new UserBase(phoneNumber, password);
         userBase.save(new SaveListener<String>() {
             @Override
@@ -187,10 +188,18 @@ public class RegisterActivity extends BaseActivity {
                     Log.d("ERROR", e.getErrorCode() + ":" + e.getMessage());
                 } else {
                     //注册成功，到主页面
-                    toNewActivity(MainActivity.class);
+                    User user = new User();
+                    user.setUserName(phoneNumber);
+                    user.save(new SaveListener<String>() {
+                        @Override
+                        public void done(String s, BmobException e) {
+                            toNewActivity(MainActivity.class);
+                        }
+                    });
                 }
             }
         });
+
     }
 
     @Override

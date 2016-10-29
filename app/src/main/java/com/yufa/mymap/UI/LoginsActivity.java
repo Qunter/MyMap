@@ -14,7 +14,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 
 import com.yufa.mymap.Entity.UserBase;
 import com.yufa.mymap.R;
@@ -43,12 +42,6 @@ public class LoginsActivity extends BaseActivity {
     Button loginLogining;
     @BindView(R.id.login_register)
     Button loginRegister;
-    @BindView(R.id.login_qq)
-    ImageButton loginQq;
-    @BindView(R.id.login_weichat)
-    ImageButton loginWeichat;
-    @BindView(R.id.login_sinaweibo)
-    ImageButton loginSinaweibo;
     @BindView(R.id.login_look)
     Button loginLook;
 
@@ -78,7 +71,7 @@ public class LoginsActivity extends BaseActivity {
         actionBar.hide();
     }
 
-    @OnClick({R.id.login_logining, R.id.login_register,R.id.login_look, R.id.login_qq, R.id.login_weichat, R.id.login_sinaweibo})
+    @OnClick({R.id.login_logining, R.id.login_register,R.id.login_look})
     public void onClick(View view) {
         ShowTool showTool = new ShowTool();
         switch (view.getId()) {
@@ -90,15 +83,6 @@ public class LoginsActivity extends BaseActivity {
                 break;
             case R.id.login_look:
                 toNewActivity(MainActivity.class);
-                break;
-            case R.id.login_qq:
-                showTool.showToast(this, "qq");
-                break;
-            case R.id.login_weichat:
-                showTool.showToast(this, "weichat");
-                break;
-            case R.id.login_sinaweibo:
-                showTool.showToast(this, "sinaweibo");
                 break;
         }
     }

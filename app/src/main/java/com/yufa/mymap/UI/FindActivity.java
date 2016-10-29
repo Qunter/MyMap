@@ -12,8 +12,11 @@ import android.widget.TextView;
 import com.yufa.mymap.Adapter.Adapter;
 import com.yufa.mymap.Adapter.ViewHolder;
 import com.yufa.mymap.CustomView.CircleView;
+import com.yufa.mymap.Entity.Relationship;
 import com.yufa.mymap.Entity.User;
 import com.yufa.mymap.R;
+import com.yufa.mymap.Util.SPManger;
+import com.yufa.mymap.Util.ShowTool;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +26,7 @@ import butterknife.ButterKnife;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
-import cn.bmob.v3.listener.UpdateListener;
+import cn.bmob.v3.listener.SaveListener;
 
 /**
  * Created by luyufa on 2016/9/29.
@@ -101,20 +104,23 @@ public class FindActivity extends BaseActivity {
         holder.setOnClickListener(R.id.item_group, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                save(friend);
+                save(friend.getUserName());
             }
         });
     }
 
-    private void save(User friend){
-            User user = friend;
-            user.update(new UpdateListener() {
-                @Override
-                public void done(BmobException e) {
-
-                }
-            });
-
+    private void save(final String  userName){
+        Relationship relationship = new Relationship();
+        SPManger spManger = new SPManger(this,"Login");
+        final String user = (String) spManger.get("username");
+        relationship.setUserName(user);
+        relationship.setFriend(userName);
+        relationship.save(new SaveListener<String>() {
+            @Override
+            public void done(String s, BmobException e) {
+                new ShowTool().showToast(FindActivity.this,"添加好友成功！:" + userName + ":" + user);
+            }
+        });
     }
 
     @Override
